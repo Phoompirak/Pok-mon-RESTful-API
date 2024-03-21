@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-flow: column wrap;
+    /* place-items: center; จัดตำแหน่งตรงกลางแกน x และ y */
+    margin: 1rem auto;
+
+    & form {
+        align-self: center;
+        & input {
+            border-radius: 5px;
+            border: gray 2px solid;
+            width: 45vw;
+            height: 3vw;
+            padding: 10px;
+            margin: 10px 1rem;
+            transition: width, height .3s ease-in-out;
+            
+            &:focus {
+                outline: none;
+            }
+        }
+        
+        & label {
+            width: 35px;
+            height: 35px;
+            
+            & svg {
+                transform: translate(0, 30%);
+                width: 35px;
+                height: 35px;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    .container {
+        & form {
+            & input {
+                width: 50vw;
+                height: 5vw;
+            }
+        }
+    }
+}
+@media screen and (max-width: 600px) {
+    .container {
+        & form {
+            & input {
+                width: 60vw;
+                height: 10vw;
+            }
+        }
+    }
+}
