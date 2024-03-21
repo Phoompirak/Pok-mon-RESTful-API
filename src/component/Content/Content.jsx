@@ -22,7 +22,7 @@ function Content({ searchPoke }) {
                     .then(res => res.json());
                 pokemonData.push(pokeRes);
                 setPokemon(pokemonData)
-                await sleep(100); // delay โหลดpokemon ทีละตัว
+                await sleep(1000); // delay โหลดpokemon ทีละตัว
             }
             catch (err) {
                 console.log(`Error fetching pokemon: ${err}`)
@@ -35,7 +35,7 @@ function Content({ searchPoke }) {
     }
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=1000000&offset=0')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=200')
     }, [])
 
     useEffect(() => {
