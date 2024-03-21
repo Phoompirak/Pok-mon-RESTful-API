@@ -6,6 +6,9 @@ function Content({ searchPoke }) {
     const [dbValue, setDbValue] = useState('');
     const [pokemon, setPokemon] = useState([]); //cache ของ ข้อมูลpokemon
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     async function fetchPokemon(BASE_URL) {
         const res = await fetch(BASE_URL)
             .then(res => res.json())
@@ -18,18 +21,21 @@ function Content({ searchPoke }) {
                 const pokeRes = await fetch(result.url)
                     .then(res => res.json());
                 pokemonData.push(pokeRes);
+                setPokemon(pokemonData)
+                await sleep(100); // delay โหลดpokemon ทีละตัว
             }
             catch (err) {
                 console.log(`Error fetching pokemon: ${err}`)
             }
         }
         console.log(pokemonData)
+        // โหลดแบบครั้งเดียวรวด ซึ่งนานเกินไป แถมโดนAPIบล็อก
         // const pokemonData = await Promise.all(pokemonPromises);
         setPokemon(pokemonData);
     }
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=1000000&offset=0')
     }, [])
 
     useEffect(() => {
@@ -42,31 +48,33 @@ function Content({ searchPoke }) {
         };
     }, [searchPoke])
 
+    console.log(pokemon.length)
     return (
         <div className={styles.con}>
             {
-                pokemon ?
-                    pokemon?.filter(item => {
+                pokemon.length != 0 ?
+                    pokemon.filter(item => {
                         return (
                             dbValue.toLowerCase() == ''
                                 ? item
                                 : item.name.toLowerCase().includes(dbValue)
                         )
                     }).map((value, index) => (
-                        <div className={styles.item} key={index}>
-                            <img src={value.sprites.other.home.front_default} alt="" />
-                            <h3>Name: {value.name}</h3>
-                            <ul>
-                                <h4>Type:</h4>
-                                {
-                                    value.types.map((skill, index) => (
-                                        <li key={index}>{skill.type.name}</li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
+                        value.sprites.other.home.front_default == null ? <p></p>
+                            : <div className={styles.item} key={index}>
+                                <img src={value.sprites.other.home.front_default} alt="" />
+                                <h3>Name: {value.name}</h3>
+                                <ul>
+                                    <h4>Type:</h4>
+                                    {
+                                        value.types.map((skill, index) => (
+                                            <li key={index}>{skill.type.name}</li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
                     ))
-                    : <p>Loading pokemon...</p>
+                    : <p className={styles.loading_pokemon}>Loading pokemon...</p>
             }
         </div>
     )
