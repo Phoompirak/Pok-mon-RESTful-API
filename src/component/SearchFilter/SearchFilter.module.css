@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-flow: column wrap;
+    width: 100%;
     /* place-items: center; จัดตำแหน่งตรงกลางแกน x และ y */
     margin: 1rem auto;
 

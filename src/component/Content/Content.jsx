@@ -15,27 +15,26 @@ function Content({ searchPoke }) {
             .then(data => data.results)
             .catch(err => console.log(`Error fetching pokemon: ${err}`))
 
-        const pokemonData = [];
+        const pokemonPromises = [];
         for (const result of res) {
             try {
                 const pokeRes = await fetch(result.url)
                     .then(res => res.json());
-                pokemonData.push(pokeRes);
-                setPokemon(pokemonData)
-                await sleep(1000); // delay โหลดpokemon ทีละตัว
+                pokemonPromises.push(pokeRes);
+                // setPokemon(pokemonData)
+                // await sleep(100); // delay โหลดpokemon ทีละตัว
             }
             catch (err) {
                 console.log(`Error fetching pokemon: ${err}`)
             }
         }
-        console.log(pokemonData)
         // โหลดแบบครั้งเดียวรวด ซึ่งนานเกินไป แถมโดนAPIบล็อก
-        // const pokemonData = await Promise.all(pokemonPromises);
+        const pokemonData = await Promise.all(pokemonPromises);
         setPokemon(pokemonData);
     }
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=200')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
     }, [])
 
     useEffect(() => {
@@ -60,7 +59,7 @@ function Content({ searchPoke }) {
                                 : item.name.toLowerCase().includes(dbValue)
                         )
                     }).map((value, index) => (
-                        value.sprites.other.home.front_default == null ? <p></p>
+                        value.sprites.other.home.front_default == null ? setDbValue(dbValue)
                             : <div className={styles.item} key={index}>
                                 <img src={value.sprites.other.home.front_default} alt="" />
                                 <h3>Name: {value.name}</h3>

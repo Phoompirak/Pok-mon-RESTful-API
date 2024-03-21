@@ -39,6 +39,7 @@
             list-style: none;
             height: 60px;
             cursor: pointer;
+            transition: transform 200ms ease-in-out;
             
             & svg {
                 color: white;
@@ -53,7 +54,7 @@
                 background-color: #003aa5;
             }
             &:active {
-                transform: scale(.8);
+                transform: scale(.9);
             }
         }
     }
