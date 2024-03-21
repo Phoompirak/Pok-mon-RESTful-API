@@ -28,7 +28,7 @@ function Content({ searchPoke }) {
                 // setPokemon(pokemonData)
                 console.log(pokemonData.length)
                 // console.log(`Loading pokemon: ${pokeRes.name} SUCSSES!!`)
-                await sleep(500); // delay โหลดpokemon ทีละตัว
+                //await sleep(500); // delay โหลดpokemon ทีละตัว
             }
             catch (err) {
                 console.log(`Error fetching pokemon: ${err}`)
