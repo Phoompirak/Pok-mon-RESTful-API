@@ -25,7 +25,7 @@ function Content({ searchPoke }) {
                     continue
                 }
                 pokemonData.push(pokeRes);
-                setPokemon(pokemonData)
+                // setPokemon(pokemonData)
                 console.log(pokemonData.length)
                 // console.log(`Loading pokemon: ${pokeRes.name} SUCSSES!!`)
                 await sleep(500); // delay โหลดpokemon ทีละตัว
@@ -36,7 +36,7 @@ function Content({ searchPoke }) {
         }
         // โหลดแบบครั้งเดียวรวด ซึ่งนานเกินไป แถมโดนAPIบล็อก
         // const pokemonData = await Promise.all(pokemonPromises);
-        // setPokemon(pokemonData);
+        setPokemon(pokemonData);
     }
 
     useEffect(() => {
