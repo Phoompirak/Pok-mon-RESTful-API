@@ -15,26 +15,26 @@ function Content({ searchPoke }) {
             .then(data => data.results)
             .catch(err => console.log(`Error fetching pokemon: ${err}`))
 
-        const pokemonPromises = [];
+        const pokemonData = [];
         for (const result of res) {
             try {
                 const pokeRes = await fetch(result.url)
                     .then(res => res.json());
-                pokemonPromises.push(pokeRes);
-                // setPokemon(pokemonData)
-                // await sleep(100); // delay โหลดpokemon ทีละตัว
+                pokemonData.push(pokeRes);
+                setPokemon(pokemonData)
+                await sleep(100); // delay โหลดpokemon ทีละตัว
             }
             catch (err) {
                 console.log(`Error fetching pokemon: ${err}`)
             }
         }
         // โหลดแบบครั้งเดียวรวด ซึ่งนานเกินไป แถมโดนAPIบล็อก
-        const pokemonData = await Promise.all(pokemonPromises);
+        // const pokemonData = await Promise.all(pokemonPromises);
         setPokemon(pokemonData);
     }
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=1000000&offset=0')
     }, [])
 
     useEffect(() => {
@@ -46,8 +46,6 @@ function Content({ searchPoke }) {
             clearInterval(timerId);
         };
     }, [searchPoke])
-
-    console.log(pokemon.length)
     return (
         <div className={styles.con}>
             {
