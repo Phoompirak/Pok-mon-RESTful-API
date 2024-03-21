@@ -40,7 +40,7 @@ function Content({ searchPoke }) {
     }
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=10000000&offset=0')
     }, [])
 
     useEffect(() => {
