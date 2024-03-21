@@ -25,10 +25,10 @@ function Content({ searchPoke }) {
                     continue
                 }
                 pokemonData.push(pokeRes);
-                // setPokemon(pokemonData)
+                setPokemon(pokemonData)
                 console.log(pokemonData.length)
                 // console.log(`Loading pokemon: ${pokeRes.name} SUCSSES!!`)
-                //await sleep(500); // delay โหลดpokemon ทีละตัว
+                await sleep(500); // delay โหลดpokemon ทีละตัว
             }
             catch (err) {
                 console.log(`Error fetching pokemon: ${err}`)
@@ -40,7 +40,7 @@ function Content({ searchPoke }) {
     }
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=10000000&offset=0')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0')
     }, [])
 
     useEffect(() => {
