@@ -3,7 +3,6 @@ import styles from '../Content/Content.module.css'
 
 function Content({ searchPoke }) {
     // cache
-    const [dbValue, setDbValue] = useState('');
     const [pokemon, setPokemon] = useState([]); //cache ของ ข้อมูลpokemon
 
     function sleep(ms) {
@@ -14,7 +13,6 @@ function Content({ searchPoke }) {
             .then(res => res.json())
             .then(data => data.results)
             .catch(err => console.log(`Error fetching pokemon: ${err}`))
-        console.log(res)
         const pokemonData = [];
         for (const result of res) {
             try {
@@ -26,7 +24,7 @@ function Content({ searchPoke }) {
                 }
                 pokemonData.push(pokeRes);
                 setPokemon(pokemonData)
-                console.log(pokemonData.length)
+                console.log(`Loading poke: ${pokemonData.length} , at ${new Date().toLocaleTimeString()}`)
                 // console.log(`Loading pokemon: ${pokeRes.name} SUCSSES!!`)
                 await sleep(500); // delay โหลดpokemon ทีละตัว
             }
@@ -38,32 +36,26 @@ function Content({ searchPoke }) {
         // const pokemonData = await Promise.all(pokemonPromises);
         setPokemon(pokemonData);
     }
+    useEffect(() => {
+        console.log(`Send search: ${searchPoke.toLowerCase().replace(/\s/g, "")}`)
+    }, [searchPoke])
 
     useEffect(() => {
-        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0')
+        fetchPokemon('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0')
     }, [])
 
-    useEffect(() => {
-        const timerId = setTimeout(() => {
-            setDbValue(searchPoke.toLowerCase());
-        }, 800);
-
-        return () => {
-            clearInterval(timerId);
-        };
-    }, [searchPoke])
     return (
         <div className={styles.con}>
             {
                 pokemon.length != 0 ?
                     pokemon.filter(item => {
                         return (
-                            dbValue.toLowerCase() == ''
+                            searchPoke.toLowerCase() == ''
                                 ? item
-                                : item.name.toLowerCase().includes(dbValue)
+                                : item.name.toLowerCase().replace(/\s/g, "").includes(searchPoke) // trime all space
                         )
                     }).map((value, index) => (
-                        value.sprites.other.home.front_default == null ? setDbValue(dbValue)
+                        value.sprites.other.home.front_default == null ? console.log(`Index ${index} Not found image`)
                             : <div className={styles.item} key={index}>
                                 <img src={value.sprites.other.home.front_default} alt="" />
                                 <h3>Name: {value.name}</h3>
