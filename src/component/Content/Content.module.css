@@ -6,34 +6,13 @@
     grid-auto-rows: minmax(170px, auto);
     padding: 4rem;
     overflow: hidden;
-
-    & .item {
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 10px gray;
-        padding: 2rem;
-        border-radius: 10px;
-
-        & ul {
-            margin-left: 48px;
-            align-self: first flex-start;
-            & li {
-                list-style-type: circle;
-            }
-        }
-
-        & img {
-            width: 100px;
-            height: 100px;
-        }
-    }
+    justify-content: center;
+    align-items: center;
 }
 
 .loading_pokemon {
-    justify-items: center;
     align-items: center;
+    justify-self: center;
 }
 
 @media screen and (max-width: 1670px) {

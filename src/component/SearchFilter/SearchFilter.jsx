@@ -2,6 +2,7 @@ import styles from '../SearchFilter/SearchFilter.module.css'
 import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from 'react';
 
+
 import Content from '../Content/Content';
 
 export default function SearchFilter() {

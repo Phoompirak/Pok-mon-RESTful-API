@@ -1,0 +1,28 @@
+.flex {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+
+    & .circle, .three_border_spinner {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        animation: spin 1s infinite linear;
+    }
+    & .circle {
+        border: 5px solid hsl(45, 100%, 50%);
+        border-top-color: rgb(150, 150, 150);
+    }
+    & .three_border_spinner {
+        border: 5px solid rgba(255, 255, 255, .2);
+        border-top: 5px solid transparent;
+    }
+}
+
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }    
+}
