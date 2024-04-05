@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
 
-    & .circle, .three_border_spinner {
+    & .circle {
         width: 40px;
         height: 40px;
         border-radius: 100%;
@@ -14,12 +14,7 @@
         border: 5px solid hsl(45, 100%, 50%);
         border-top-color: rgb(150, 150, 150);
     }
-    & .three_border_spinner {
-        border: 5px solid rgba(255, 255, 255, .2);
-        border-top: 5px solid transparent;
-    }
 }
-
 
 @keyframes spin {
     100% {

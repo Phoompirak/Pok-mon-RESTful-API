@@ -41,7 +41,7 @@ const Test = () => {
   }
 
   useEffect(() => {
-    fetchPoke("https://pokeapi.co/api/v2/pokemon?limit=100&offset=0");
+    fetchPoke("https://pokeapi.co/api/v2/pokemon?limit=30&offset=1302");
   }, [])
 
   console.log(pokemon);

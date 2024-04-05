@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import styles from '../Content/Content.module.css'
 import ItemContent from './ItemContent';
 import Loading from '../Loading/Loading';
@@ -23,49 +23,57 @@ function Content({ searchPoke }) {
     const [pokemon, setPokemon] = useState([]); //cache ของ ข้อมูลpokemon
     const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(true);
-    const limit = 30;
+    const limit = 15;
+    
+    const fetchData = async () => {
+        try {
+            const newPokemon = await fetchPokemon(limit, offset);
+            console.log(pokemon.length)
+            setPokemon([...pokemon, ...newPokemon]);
+        } catch (err) {
+            console.log(`Error fetching pokemon: ${err}`);
+        }
+        setLoading(false)
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const newPokemon = await fetchPokemon(limit, offset);
-                setPokemon([...pokemon, ...newPokemon]);
-            } catch (err) {
-                console.log(`Error fetching pokemon: ${err}`);
-            }
-            setLoading(false)
-        };
+        console.log("Effect Fetch data")
         fetchData();
     }, [offset]);
 
-    const handleScroll = async () => {
+    const handleScroll = useCallback(async () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
+      
         if (scrollTop + clientHeight >= scrollHeight - 50) {
-            setLoading(true);
-            setOffset((prevOffset) => prevOffset + limit);
+          setLoading(true);
+          setOffset((prevOffset) => prevOffset + limit);
         }
-    };
+        // Return a cleanup function
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
 
     useEffect(() => {
+        // console.log("Add event scroll")
         window.addEventListener("scroll", handleScroll);
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [handleScroll]);
 
+    const filteredPokemon = useMemo(() => {
+        // console.log("useMemo filterPokemon")
+        return pokemon.filter((item) =>
+            searchPoke.toLowerCase() === ''
+                ? item
+                : item.name.toLowerCase().replace(/\s/g, "").includes(searchPoke)
+        );
+    }, [pokemon, searchPoke])
     return (
         <>
             <div className={styles.con}>
                 {
-                    pokemon.filter(item => {
-                        return (
-                            searchPoke.toLowerCase() == ''
-                                ? item
-                                : item.name.toLowerCase().replace(/\s/g, "").includes(searchPoke) // trime all space
-                        )
-                    }).map((value, index) => (
+                    filteredPokemon.map((value, index) => (
                         <ItemContent value={value} key={index} />
                     ))
                 }

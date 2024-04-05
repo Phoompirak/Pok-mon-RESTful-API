@@ -5,7 +5,6 @@ const Loading = () => {
   return (
     <div className={styles.flex}>
       <div className={styles.circle}></div>
-      <div className={styles.three_border_spinner}></div>
     </div>
   )
 }
