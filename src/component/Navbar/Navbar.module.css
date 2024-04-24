@@ -37,22 +37,23 @@
             & li {
                 list-style-type: none;
                 margin-right: 2rem;
+                transition: transform .3s ease-out, background-color .2s;
                 
-                & button {
+                &:active {
+                    transform: scale(0.7);
+                }
+                & a {
+                    text-decoration: none;
                     background-color: #0f1829;
                     font-size: large;
                     border-radius: 4px;
                     border: none;
                     color: aliceblue;
                     padding: .5rem 1rem;
-                    transition: transform .3s ease-out, background-color .2s;
                     cursor: pointer;
                     
                     &:hover {
                         background-color: #0148cc;
-                    }
-                    &:active {
-                        transform: scale(.7);
                     }
                 }
             }

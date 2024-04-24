@@ -4,13 +4,30 @@
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 10px gray;
+    width: 250px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, .3);
     padding: 2rem;
     border-radius: 10px;
+    overflow: hidden;
+    transition: transform .2s ease-in;
+
+    &:hover {
+        transform: translateY(-10px);
+    }
+
+    /* iconหัวใจ */
+    & svg {
+        width: 2rem;
+        height: 2rem;
+        color: #f54f65;
+        align-self: flex-end;
+        cursor: pointer;
+    }
 
     & img {
         width: 100px;
         height: 100px;
+        filter: grayscale(0.44);
     }
 
     & ul {
@@ -60,6 +77,3 @@
         }
     }
 }
-
-
-
