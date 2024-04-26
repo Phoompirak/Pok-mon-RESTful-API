@@ -22,14 +22,7 @@ const Content = memo(({ searchPoke }) => {
     const [pokemon, setPokemon] = useState([]); //cache ของ ข้อมูลpokemon
     const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(true);
-    const limit = 10;
-    
-    // const storageFavPoke = new Map(JSON.parse(sessionStorage.getItem('favPoke')));
-    // console.log("Get key:", storageFavPoke.get('test'))
-
-    // storageFavPoke.forEach((key, value) => {
-    //     console.log("key and value:", key, value)
-    // })
+    const limit = 15;
 
     const fetchData = async () => {
         try {

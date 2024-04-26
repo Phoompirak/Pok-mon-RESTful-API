@@ -30,9 +30,9 @@ const router = createBrowserRouter([
   }
 ])
 
-const favPoke = new Map();
-const favPokeString = JSON.stringify(Array.from(favPoke))
-sessionStorage.setItem('favPoke', favPokeString);
+// const favPoke = new Map();
+// const favPokeString = JSON.stringify(Array.from(favPoke))
+// sessionStorage.setItem('favPoke', favPokeString);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

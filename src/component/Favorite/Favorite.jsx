@@ -29,14 +29,16 @@ const Favorite = () => {
     }, [])
     console.log(favPokemon)
     return (
-        <div className={styles.container}>
+        <>
             <Navbar />
-            <div className={styles.wrapper}>
-                {favPokemon && favPokemon?.map((pokemon, index) => (
-                    <ItemContent key={index} value={pokemon} />
-                ))}
-            </div>
-        </div >
+            <div className={styles.container}>
+                <div className={styles.wrapper}>
+                    {favPokemon && favPokemon?.map((pokemon, index) => (
+                        <ItemContent key={index} value={pokemon} />
+                    ))}
+                </div>
+            </div >
+        </>
     )
 }
 
