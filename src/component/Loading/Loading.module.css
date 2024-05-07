@@ -3,6 +3,7 @@
     flex-flow: row;
     justify-content: center;
     align-items: center;
+    margin: 2rem;
 
     & .circle {
         width: 40px;

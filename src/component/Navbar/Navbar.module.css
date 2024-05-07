@@ -7,9 +7,10 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem 2rem;
-        background-color: #0f1829;
+        background: rgb(15, 24, 41);
+        background: linear-gradient(90deg, rgba(15, 24, 41, 1) 0%, rgba(9, 66, 121, 1) 51%, rgba(0, 133, 159, 1) 100%);
         border-radius: 10px;
-        
+
         & .side_btn {
             & svg {
                 width: 28px;
@@ -17,31 +18,36 @@
                 color: aliceblue;
                 cursor: pointer;
                 transition: all .3s ease-in-out;
+
                 &:nth-child(1) {
                     display: none;
                     width: 35px;
                     height: 35px;
                 }
+
                 &:nth-child(2) {
                     display: block;
                 }
+
                 &:active {
                     transform: scale(.7);
                 }
             }
         }
+
         & ul {
             display: flex;
             align-items: center;
-            
+
             & li {
                 list-style-type: none;
                 margin-right: 2rem;
                 transition: transform .3s ease-out, background-color .2s;
-                
+
                 &:active {
                     transform: scale(0.7);
                 }
+
                 & a {
                     text-decoration: none;
                     background-color: #0f1829;
@@ -51,7 +57,25 @@
                     color: aliceblue;
                     padding: .5rem 1rem;
                     cursor: pointer;
-                    
+
+                    &:nth-child(1) {
+                        /* Link ของ Faviorite */
+                        position: relative;
+
+                        & span {
+                            position: absolute;
+                            color: #fff;
+                            background-color: rgb(247, 160, 0);
+                            width: 20px;
+                            height: 20px;
+                            text-align: center;
+                            font-size: 14px;
+                            border-radius: 50%;
+                            top: -3px;
+                            right: -5px;
+                        }
+                    }
+
                     &:hover {
                         background-color: #0148cc;
                     }
@@ -70,6 +94,7 @@
                     &:nth-child(1) {
                         display: block;
                     }
+
                     &:nth-child(2) {
                         display: none;
 

@@ -5,11 +5,13 @@
     justify-content: center;
     align-items: center;
     width: 250px;
-    box-shadow: 0 0 16px rgba(0, 0, 0, .3);
+    box-shadow: 10px 25px 20px -6px rgb(0 0 0 / 0.1);
+    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
     padding: 2rem;
     border-radius: 10px;
     overflow: hidden;
     transition: transform .2s ease-in;
+    filter: grayscale(0.44);
 
     &:hover {
         transform: translateY(-10px);
@@ -27,17 +29,39 @@
     & img {
         width: 100px;
         height: 100px;
-        filter: grayscale(0.44);
     }
 
-    & ul {
-        margin-left: 48px;
-        align-self: first flex-start;
+    & .types_poke {
+        list-style-type: none;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        
+        & .type {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            color: #fff;
+            border-radius: 2em;
+            padding: .25rem .5rem;
+            
+            & p {
+                text-align: center;
+            }
 
-        & li {
-            list-style-type: circle;
+            & svg {
+                color: #fff;
+                align-items: center;
+                width: 16px;
+                height: 16px;
+            }
         }
     }
+
     & .button_29 {
         align-items: center;
         appearance: none;
@@ -63,14 +87,16 @@
         white-space: nowrap;
         will-change: box-shadow, transform;
         font-size: 18px;
-    
+
         &:focus {
             box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
         }
+
         &:hover {
             box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
             transform: translateY(-2px);
         }
+
         &:active {
             box-shadow: #3c4fe0 0 3px 7px inset;
             transform: translateY(2px);

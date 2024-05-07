@@ -1,38 +1,19 @@
-import React, { useState, memo, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import styles from './ItemContent.module.css'
+import React, { useState, useEffect, memo } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './ItemContent.module.css';
 import { GoHeartFill, GoHeart } from "react-icons/go";
 
-const typeColors = {
-    normal: "#A8A878",
-    poison: "#A040A0",
-    psychic: "#F85888",
-    grass: "#78C850",
-    ground: "#E0C068",
-    ice: "#98D8D8",
-    fire: "#F08030",
-    rock: "#B8A038",
-    dragon: "#7038F8",
-    water: "#6890F0",
-    bug: "#A8B820",
-    dark: "#705848",
-    fighting: "#C03028",
-    ghost: "#705898",
-    steel: "#B8B8D0",
-    electric: "#F8D030",
-    flying: "#A890F0",
-    fairy: "#EE99AC",
-};
+import { typeColors, typeIcon } from '../../function/TypePoke'
 
 const ItemContent = memo(({ value }) => {
     const [hoverItem, setHoverItem] = useState(false)
-    const storageLikePoke =  new Map(JSON.parse(sessionStorage.getItem('favPoke'))) || false
+    const storageLikePoke = new Map(JSON.parse(sessionStorage.getItem('favPoke'))) || false
     const likePoke = storageLikePoke.get(value.name) ? true : false
 
     const addLikePoke = (name, id) => {
         const storageFavPokeJSON = sessionStorage.getItem('favPoke');
         const storageFavPoke = storageFavPokeJSON ? new Map(JSON.parse(storageFavPokeJSON)) : new Map();
-        if (storageFavPoke.get(name)) {return}
+        if (storageFavPoke.get(name)) { return }
         else {
             storageFavPoke.set(name, id)
             const storageFavPokeUpdate = JSON.stringify(Array.from(storageFavPoke))
@@ -54,33 +35,59 @@ const ItemContent = memo(({ value }) => {
             console.log("ไม่มีPokemonที่จะลบ")
         }
     }
+    const itemCards = document.querySelectorAll('.items');
+
+    if (itemCards.length > 0 && itemCards) { // ตรวจสอบว่ามี elements ที่ตรงตามเงื่อนไขหรือไม่
+        itemCards.forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.style.filter = 'grayscale(0)';
+            })
+        })
+        itemCards.forEach(card => {
+            card.addEventListener('mouseout', () => {
+                card.style.filter = 'grayscale(0.44)';
+            })
+        })
+    }
     return (
         <>
             <div
                 className={`${styles.item} items`}
                 style={{
-                    outline: hoverItem && `2px solid ${typeColors[value.types[0].type.name]}`,
-                    boxShadow: hoverItem
-                        && `1px 1px 10px ${typeColors[value.types[0].type.name]},
-                0 0 30px ${typeColors[value.types[0].type.name]}`,
-                    borderBottom: hoverItem && `1.5rem solid${typeColors[value.types[0].type.name]}`
+                    outline: hoverItem && `2px solid ${typeColors[value?.types[0]?.type?.name]}`,
+                    boxShadow: hoverItem && `1px 1px 10px ${typeColors[value?.types[0]?.type?.name]}, 0 0 30px ${typeColors[value?.types[0]?.type?.name]}`,
+                    borderBottom: hoverItem && `.14rem solid ${typeColors[value?.types[0]?.type?.name]}`
                 }}
                 onMouseOver={() => setHoverItem(true)}
                 onMouseOut={() => setHoverItem(false)}
             >
-                { likePoke 
-                ? <GoHeartFill onClick={() => removeLikePoke(value.name)}/>
-                : <GoHeart onClick={() => addLikePoke(value.name, value.id)}/> }
-                <img src={value.sprites.other.home.front_default} className='image_items'/>
-                <h3>Name: {value.name}</h3>
-                <ul>
-                    {
-                        value.types.map((skill, index) => (
-                            <li key={index}>{skill.type.name}</li>
-                        ))
+                {likePoke
+                    ? <GoHeartFill onClick={() => removeLikePoke(value?.name)} />
+                    : <GoHeart onClick={() => addLikePoke(value?.name, value?.id)} />}
+                <img
+                    src={
+                        value?.sprites?.other["official-artwork"]?.front_default ?
+                        value?.sprites?.other["official-artwork"]?.front_default
+                        : value?.sprites?.other?.home?.front_default
+                        ||value?.sprites?.front_default
+                        || 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg'
                     }
+                    className='image_items' />
+                <h3>Name: {value?.name}</h3>
+                <ul className={styles.types_poke}>
+                    {value?.types?.map((skill, index) => (
+                        <li
+                            key={index}
+                            style={{ backgroundColor: typeColors[skill?.type.name] }}
+                            className={styles.type}>
+                            {typeIcon[skill?.type.name]}
+                            <p>
+                                {skill?.type.name}
+                            </p>
+                        </li>
+                    ))}
                 </ul>
-                <Link to={'/pokemon/' + value.id}>
+                <Link to={'/pokemon/' + value?.id}>
                     <button
                         className={styles.button_29}
                         role="button"

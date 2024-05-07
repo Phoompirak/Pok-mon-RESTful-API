@@ -40,7 +40,7 @@ function Navbar() {
             <Link to={'/'}>Home</Link>
           </li>
           <li>
-            <Link to={'/favorite'}>Faviorite</Link>
+            <Link to={'/faviorite'}>Faviorite <span>{new Map(JSON.parse(sessionStorage.getItem('favPoke'))).size || 0}</span></Link>
           </li>
           <li>
             <a href='https://pokeapi.co/' target='_blank'>Origin</a>

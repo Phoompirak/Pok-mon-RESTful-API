@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import styles from './DetailPoke.module.css'
 import axios from 'axios'
 
+import { typeColors, typeIcon } from '../../function/TypePoke'
 
 const DetailPoke = memo(() => {
     const params = useParams();
@@ -12,26 +13,6 @@ const DetailPoke = memo(() => {
     const [data, setData] = useState({});
     const [seedPoke, setSeedPoke] = useState([]);
 
-    const typeColors = {
-        normal: "#A8A878",
-        poison: "#A040A0",
-        psychic: "#F85888",
-        grass: "#78C850",
-        ground: "#E0C068",
-        ice: "#98D8D8",
-        fire: "#F08030",
-        rock: "#B8A038",
-        dragon: "#7038F8",
-        water: "#6890F0",
-        bug: "#A8B820",
-        dark: "#705848",
-        fighting: "#C03028",
-        ghost: "#705898",
-        steel: "#B8B8D0",
-        electric: "#F8D030",
-        flying: "#A890F0",
-        fairy: "#EE99AC",
-    };
     const fetchPoke = (url) => {
         try {
             axios.get(url)
@@ -51,7 +32,6 @@ const DetailPoke = memo(() => {
 
     useEffect(() => {
         fetchPoke(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
-        // setData(fetchingData)
     }, [])
 
     const filterSpecies = (seeds) => {
@@ -76,7 +56,12 @@ const DetailPoke = memo(() => {
                 <div
                     className={styles.bg_black}
                     style={{ backgroundColor: typeColors[data?.types?.[0]?.type?.name] }}>
-                    <img className={styles.bg_poke} src={data?.sprites?.other?.showdown?.back_default} />
+                    <img
+                        className={styles.bg_poke}
+                        src={
+                            data?.sprites?.other?.showdown?.back_default
+                            || data?.sprites?.other?.showdown?.front_default
+                        } />
                     <div className={styles.wrapper_detail}>
                         <div className={styles.btn_back}>
                             <button onClick={(e) => {
@@ -85,29 +70,92 @@ const DetailPoke = memo(() => {
                             }}>Back</button>
                         </div>
                         <div className={styles.item}>
-                            <img src={data?.sprites?.other?.home?.front_default} />
+                            <img src={
+                                data?.sprites?.other["official-artwork"]?.front_default ?
+                                    data?.sprites?.other["official-artwork"]?.front_default
+                                    : data?.sprites?.other?.home?.front_default
+                                    || data?.sprites?.front_default
+                                    || 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg'
+                            } />
                         </div>
                         <div className={styles.item}>
                             <h1>{data?.name}</h1>
                         </div>
+
                         <div className={styles.item}>
-                            <h3>Type:</h3>
-                            <p>{data?.types?.map((skill, index) => (
-                                <li key={index}>{skill.type.name}</li>
-                            ))}</p>
+                            <div className={styles.item_head}>
+                                <h3
+                                    style={{ color: typeColors[data?.types?.[0]?.type?.name] }}>
+                                    {seedPoke?.genera?.find(g => g?.language?.name === 'en').genus}
+                                </h3>
+                                <ul className={styles.types_poke}>
+                                    {data?.types?.map((skill, index) => (
+                                        <li
+                                            key={index}
+                                            style={{ backgroundColor: typeColors[skill.type.name] }}
+                                            className={styles.type}>
+                                            {typeIcon[skill.type.name]} {skill.type.name}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className={styles.item_detail}>
+                                <ul>
+                                    {
+                                        filterSpecies(seedPoke)
+                                            .map((text, idx) => (
+                                                <li key={idx}>
+                                                    {text}
+                                                </li>
+                                            ))
+                                    }
+                                </ul>
+                            </div>
                         </div>
                         <div className={styles.item}>
-                            <h3>{seedPoke?.genera?.find(g => g?.language?.name === 'en').genus}</h3>
-                            <ul>
-                                {
-                                    filterSpecies(seedPoke)
-                                        .map((text, idx) => (
-                                            <li key={idx}>
-                                                {text}
+                            <div className={styles.all_status}>
+                                <div className={styles.profile}>
+                                    <h3
+                                        style={{ color: typeColors[data?.types?.[0]?.type?.name] }}>
+                                        Profile
+                                    </h3>
+                                    <ul>
+                                        <li>Height: {data?.height / 10}m</li>
+                                        <li>Weight: {data?.weight / 10}kg</li>
+                                        <li>Shape: {seedPoke?.shape?.name}</li>
+                                        <li>Habitat: {seedPoke?.habitat?.name}</li>
+                                    </ul>
+                                </div>
+                                <div className={styles.abilities}>
+                                    <h3
+                                        style={{ color: typeColors[data?.types?.[0]?.type?.name] }}>
+                                        Abilities
+                                    </h3>
+                                    <ul>
+                                        {
+                                            data?.abilities?.map((abil, index) => (
+                                                <li key={index}>
+                                                    {abil?.ability.name}
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                                <div className={styles.stats}>
+                                    <h3
+                                        style={{ color: typeColors[data?.types?.[0]?.type?.name] }}>
+                                        Stats
+                                    </h3>
+                                    <ul>
+                                        {data?.stats?.map(s => (
+                                            <li key={s?.stat?.name}>
+                                                {s?.stat?.name}: {s.base_stat}
                                             </li>
-                                        ))
-                                }
-                            </ul>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -3,18 +3,10 @@ import { AiFillHome, AiFillHeart  } from "react-icons/ai";
 import { IoIosLink } from "react-icons/io";
 import { FiAlertCircle } from "react-icons/fi";
 
-import { createRoot } from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
-
 export const SidebarData = [
     {
         title: 'Home',
-        path: '/home',
+        path: '/',
         icon: <AiFillHome />,
         cName: 'nav-text'
     },
@@ -26,7 +18,7 @@ export const SidebarData = [
     },
     {
         title: 'Origin',
-        path: '/origin',
+        path: 'https://pokeapi.co/',
         icon: <IoIosLink />,
         cName: 'nav-text'
     },

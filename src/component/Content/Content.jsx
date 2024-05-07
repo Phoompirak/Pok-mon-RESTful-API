@@ -10,7 +10,7 @@ const fetchPokemon = async (limit, offset) => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`).then((res) => res.json());
     const pokemonPromises = res.results.map(async (result) => {
         const pokeRes = await fetch(result.url).then((res) => res.json());
-        await sleep(100);
+        // await sleep(100);
         return pokeRes;
     });
     const pokemonData = await Promise.all(pokemonPromises);
@@ -22,7 +22,7 @@ const Content = memo(({ searchPoke }) => {
     const [pokemon, setPokemon] = useState([]); //cache ของ ข้อมูลpokemon
     const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(true);
-    const limit = 15;
+    const limit = 10;
 
     const fetchData = async () => {
         try {
@@ -41,18 +41,18 @@ const Content = memo(({ searchPoke }) => {
     }, [offset]);
 
     const handleScroll = useCallback(async () => {
-        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        // const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-        if (scrollTop + clientHeight >= scrollHeight - 30) {
-            setLoading(true);
-            setOffset((prevOffset) => prevOffset + limit);
-        }
-        // Return a cleanup function
-        return () => window.removeEventListener('scroll', handleScroll);
+        // if (scrollTop + clientHeight >= scrollHeight - 30) {
+        //     setLoading(true);
+        //     setOffset((prevOffset) => prevOffset + limit);
+        // }
+        // // Return a cleanup function
+        // return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     useEffect(() => {
-        // console.log("Add event scroll")
+
         window.addEventListener("scroll", handleScroll);
 
         return () => {
@@ -69,43 +69,6 @@ const Content = memo(({ searchPoke }) => {
         );
     }, [pokemon, searchPoke])
 
-    const itemCards = document.querySelectorAll('.items');
-
-    if (itemCards.length > 0) { // ตรวจสอบว่ามี elements ที่ตรงตามเงื่อนไขหรือไม่
-        itemCards.forEach(card => {
-            card.addEventListener('mouseover', (e) => {
-                const imageItems = e.target.querySelectorAll('.image_items')
-                imageItems.forEach(item => {
-                    item.style.filter = 'none';
-                })
-            });
-            card.addEventListener('mouseout', (e) => {
-                const imageItems = e.target.querySelectorAll('.image_items')
-                imageItems.forEach(item => {
-                    item.style.filter = 'grayscale(0.44)';
-                })
-
-            });
-        })
-    }
-
-    // const Test = async () => {
-    //     try {
-    //         const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000')
-    //         .then(res => res.json())
-    //         .catch(err => console.log('Error fetching:', err))
-    //         return response.results;
-    //     } catch (error) {
-    //         console.error('Error fetching:', error);
-    //         return []; // ถ้ามีข้อผิดพลาดในการดึงข้อมูลให้ส่งอาเรย์ว่างออกมา
-    //     }
-    // };
-    // Test().then(results => {
-    //     // console.log(results)
-    //     const findPoke = results?.filter(p => p?.name?.includes('pika'))
-    //     console.log(findPoke)
-    // })
-    // .catch(err => console.log("Error fetching:", err))
     return (
         <>
             <div className={styles.container}>

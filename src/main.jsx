@@ -8,7 +8,7 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import DetailPoke from './component/DetailPoke/DetailPoke.jsx'
-import Favorite from './component/Favorite/Favorite.jsx'
+import Faviorite from './component/Faviorite/Faviorite.jsx'
 import About from './component/About/About.jsx'
 
 const router = createBrowserRouter([
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
     element: <DetailPoke />
   },
   {
-    path: '/favorite',
-    element: <Favorite />
+    path: '/faviorite',
+    element: <Faviorite />
   },
   {
     path: '/about',

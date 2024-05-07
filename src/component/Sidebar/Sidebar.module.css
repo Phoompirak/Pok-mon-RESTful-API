@@ -30,13 +30,13 @@
     & .side_menu_items {
         position: relative;
         margin-top: 3rem;
-        & li {
+        & a {
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 5px;
             padding: 1rem 2rem;
-            list-style: none;
+            text-decoration: none;
             height: 60px;
             cursor: pointer;
             transition: transform 200ms ease-in-out;

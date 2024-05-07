@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import ItemContent from '../Content/ItemContent'
-import styles from './Favorite.module.css'
+import styles from './Faviorite.module.css'
+import Footer from '../Footer/Footer'
 
 const Favorite = () => {
     const [favPokemon, setFavPokemon] = useState([]);
@@ -33,11 +34,17 @@ const Favorite = () => {
             <Navbar />
             <div className={styles.container}>
                 <div className={styles.wrapper}>
-                    {favPokemon && favPokemon?.map((pokemon, index) => (
-                        <ItemContent key={index} value={pokemon} />
-                    ))}
+                    {
+                        favPokemon?.length > 0 ? favPokemon?.map((pokemon, index) => (
+                            <ItemContent key={index} value={pokemon} />
+                        ))
+                            : <p className={styles.no_favpoke}>Don't have faviorite Pokemon</p>
+                    }
                 </div>
             </div >
+            <div className={styles.footer}>
+                <Footer />
+            </div>
         </>
     )
 }
