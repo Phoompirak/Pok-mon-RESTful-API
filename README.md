@@ -1,9 +1,6 @@
 ### Deployed with Render
 - Link to web pokemon --> <a href='https://pok-mon-restful-api.onrender.com/' target='_blank'>"https://pok-mon-restful-api.onrender.com/"</a>
 
-### Technology
-- front-end: [![React][React.js]][React-url]
-
 ## Examples web site screen shot
 <img src="/public/Screenshot 2024-05-09 152006.png" alt="Example web screen shot" style="width: 80%;"/>
 <img src="/public/Screenshot 2024-05-09 152055.png" alt="Example web screen shot" style="width: 80%;"/>
