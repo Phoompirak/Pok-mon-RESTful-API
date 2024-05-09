@@ -10,6 +10,7 @@
         background: rgb(15, 24, 41);
         background: linear-gradient(90deg, rgba(15, 24, 41, 1) 0%, rgba(9, 66, 121, 1) 51%, rgba(0, 133, 159, 1) 100%);
         border-radius: 10px;
+        animation: fade-down .2s backwards;
 
         & .side_btn {
             & svg {
@@ -18,6 +19,7 @@
                 color: aliceblue;
                 cursor: pointer;
                 transition: all .3s ease-in-out;
+                animation: fade-down .8s backwards;
 
                 &:nth-child(1) {
                     display: none;
@@ -43,6 +45,7 @@
                 list-style-type: none;
                 margin-right: 2rem;
                 transition: transform .3s ease-out, background-color .2s;
+                animation: fade-down .5s backwards;
 
                 &:active {
                     transform: scale(0.7);
@@ -109,8 +112,13 @@
     }
 }
 
-/* @media screen and (min-width: 700px) {
-    .close_side {
-        display: none;
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(.9);
     }
-} */
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}

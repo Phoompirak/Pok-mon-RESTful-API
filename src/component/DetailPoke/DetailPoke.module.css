@@ -13,7 +13,7 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        filter: contrast(1.2);
+        filter: contrast(1.1);
 
         & .bg_poke {
             z-index: -1;
@@ -30,20 +30,22 @@
             border-radius: 10px;
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
             margin: 4rem;
-            padding: 2rem 4rem;
+            padding: 2rem 1.7rem;
 
             & .item {
                 display: flex;
-                flex-flow: column wrap;
+                flex-flow: row wrap;
                 justify-content: center;
                 align-items: center;
-                margin: 1rem 0;
+                margin: .5rem 0;
+                animation: fade-up .3s backwards;
 
                 & img {
                     /* padding: 2rem 4rem; */
                     width: 80%;
                     min-width: 150px;
                     object-fit: cover;
+                    animation: fade-up .3s backwards;
                 }
 
                 & h3 {
@@ -97,20 +99,13 @@
                     .abilities,
                     .stats {
                         padding: .5rem 2rem;
-
-                        & ul {
-                            list-style-type: circle;
-
-                            & li {
-                                line-height: 2rem;
-                            }
-                        }
                     }
                 }
             }
 
             .btn_back {
                 margin: .5rem auto;
+                animation: fade-left .3s backwards;
 
                 & button {
                     background-color: #3787ff;
@@ -132,10 +127,32 @@
     }
 }
 
-/* @media screen and (max-width: 840px) {
-    .all_status {
-        flex-flow: column wrap;
-        justify-content: center;
-        align-items: center;
+ul {
+    list-style-type: circle;
+
+    & li {
+        line-height: 1.5rem;
     }
-} */
+}
+
+.name_poke {
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 1em;
+    padding: .5rem 2rem;
+    margin: .5rem 0;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+
+@keyframes fade-up {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0);}
+}
+@keyframes fade-left {
+    0% { opacity: 0; transform: translateX(-50px); }
+    100% { opacity: 1; transform: translateX(0);}
+}
+@keyframes fade-right {
+    0% { opacity: 0; transform: translateX(50px); }
+    100% { opacity: 1; transform: translateX(0);}
+}

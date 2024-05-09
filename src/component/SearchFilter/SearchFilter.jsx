@@ -4,7 +4,7 @@ import { IoIosClose } from "react-icons/io";
 
 import { useState, useEffect, useCallback } from 'react';
 
-import Pagination from '../Pagination/Pagination';
+import Content from '../Content/Content';
 
 export default function SearchFilter() {
     const [searchData, setSearchData] = useState('');
@@ -61,7 +61,7 @@ export default function SearchFilter() {
                 </div>
             </form>
 
-            <Pagination searchPoke={dbValue.toLowerCase().replace(/\s/g, "")} focusSearch={focus} />
+            <Content searchPoke={dbValue.toLowerCase().replace(/\s/g, "")} focusSearch={focus} />
         </div>
     )
 }

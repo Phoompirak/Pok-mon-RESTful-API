@@ -12,7 +12,7 @@ import {
 const Footer = () => {
     return (
         <>
-            <footer>
+            <footer className='footer'>
                 <div className={styles.wrapper_footer}>
                     <ul>
                         <li>

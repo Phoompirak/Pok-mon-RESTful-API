@@ -5,25 +5,35 @@
     justify-content: center;
     align-items: center;
     width: 250px;
-    box-shadow: 10px 25px 20px -6px rgb(0 0 0 / 0.1);
-    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+    box-shadow: 10px 15px 20px 1px rgb(0 0 0 / 0.24);
+    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.2));
     padding: 2rem;
     border-radius: 10px;
     overflow: hidden;
-    transition: transform .2s ease-in;
-    filter: grayscale(0.44);
+    transition: transform .3s, opacity .3s;
+    filter: grayscale(.44);
 
     &:hover {
-        transform: translateY(-10px);
+        transform: translateY(-10px) !important;
     }
 
     /* iconหัวใจ */
-    & svg {
-        width: 2rem;
-        height: 2rem;
-        color: #f54f65;
-        align-self: flex-end;
+    & .heart_bg {
+        background: url('../../../public/heart.png');
+        background-position: left;
+        object-fit: cover;
+        width: 80px;
+        height: 80px;
         cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 1rem;
+        /* color: #f54f65; */
+        
+        &.like {
+            animation: like-anime .8s steps(28) forwards;
+            transform: translateX(20px);
+        }
     }
 
     & img {
@@ -38,7 +48,7 @@
         justify-content: center;
         align-items: center;
         gap: 5px;
-        
+
         & .type {
             display: flex;
             flex-flow: row wrap;
@@ -48,7 +58,7 @@
             color: #fff;
             border-radius: 2em;
             padding: .25rem .5rem;
-            
+
             & p {
                 text-align: center;
             }
@@ -103,3 +113,16 @@
         }
     }
 }
+
+
+@media screen and (max-width: 1171px) {
+    .item {
+        filter: grayscale(0) !important;
+    }
+}
+
+@keyframes like-anime {
+    to {
+      background-position: right;
+    }
+  }

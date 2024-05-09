@@ -79,7 +79,11 @@ const DetailPoke = memo(() => {
                             } />
                         </div>
                         <div className={styles.item}>
-                            <h1>{data?.name}</h1>
+                            <h1
+                            style={{ color: typeColors[data?.types?.[0]?.type?.name] }}
+                            className={styles.name_poke}>
+                                {data?.name}
+                                </h1>
                         </div>
 
                         <div className={styles.item}>

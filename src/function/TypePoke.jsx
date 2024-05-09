@@ -60,3 +60,4 @@ export const typeIcon = {
     flying: <FaDove />,
     fairy: <FaMagic />,
 };
+

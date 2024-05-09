@@ -11,6 +11,7 @@
 
         & .wrap_search {
             position: relative;
+            animation: fade-left .8s backwards;
 
             & input {
                 top: 0;
@@ -55,6 +56,8 @@
             padding: .375rem 1rem;
             cursor: pointer;
             transition: transform .1s ease-in-out;
+            animation: fade-right .8s backwards;
+            
 
             &:hover {
                 box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -94,5 +97,26 @@
                 height: 7vw;
             }
         }
+    }
+}
+
+@keyframes fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scale(.9);
+    }
+    100% {
+        opacity: 1;
+        transform: none;    
+    }
+}
+@keyframes fade-right {
+    0% {
+        opacity: 0;
+        transform: translateX(30px) scale(.9);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
     }
 }

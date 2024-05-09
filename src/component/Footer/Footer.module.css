@@ -1,6 +1,10 @@
 footer {
     background-color: #111;
     align-self: flex-end;
+    /* position: fixed;
+    bottom: 0;
+    width: 100%; */
+
 
     & .wrapper_footer {
         display: flex;
@@ -17,17 +21,16 @@ footer {
             align-items: center;
             gap: 4rem;
             width: 100%;
-            padding: .5rem 1rem;
 
             & li {
-                padding: .25rem .35rem;
+                padding: .25rem .40rem;
                 list-style: none;
                 background-color: white;
                 border-radius: 50%;
 
                 & svg {
-                    width: 2rem;
-                    height: 2rem;
+                    width: 1.4rem;
+                    height: 1.4rem;
                     color: black;
                     opacity: .9;
                 }
@@ -40,6 +43,8 @@ footer {
         }
 
         & p {
+            margin: 5px 0 3px 0;
+            font-size: small;
             color: #fff;
 
             & .design_by {

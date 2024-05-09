@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ItemContent.module.css';
 import { GoHeartFill, GoHeart } from "react-icons/go";
@@ -40,12 +40,17 @@ const ItemContent = memo(({ value }) => {
     if (itemCards.length > 0 && itemCards) { // ตรวจสอบว่ามี elements ที่ตรงตามเงื่อนไขหรือไม่
         itemCards.forEach(card => {
             card.addEventListener('mouseover', () => {
-                card.style.filter = 'grayscale(0)';
+                // เล็กกว่านี้เป็นมือถือ hover ไม่ได้
+                if (window.innerWidth >= 1171) {
+                    card.style.filter = 'grayscale(0)';
+                }
             })
         })
         itemCards.forEach(card => {
             card.addEventListener('mouseout', () => {
-                card.style.filter = 'grayscale(0.44)';
+                if (window.innerWidth >= 1171) {
+                    card.style.filter = 'grayscale(0.44)';
+                }
             })
         })
     }
@@ -62,15 +67,16 @@ const ItemContent = memo(({ value }) => {
                 onMouseOut={() => setHoverItem(false)}
             >
                 {likePoke
-                    ? <GoHeartFill onClick={() => removeLikePoke(value?.name)} />
-                    : <GoHeart onClick={() => addLikePoke(value?.name, value?.id)} />}
+                    ? <div className={`${styles.heart_bg} ${styles.like}`} onClick={() => removeLikePoke(value?.name)}></div>
+                    : <div className={styles.heart_bg} onClick={() => addLikePoke(value?.name, value?.id)}></div>
+                }
                 <img
                     src={
                         value?.sprites?.other["official-artwork"]?.front_default ?
-                        value?.sprites?.other["official-artwork"]?.front_default
-                        : value?.sprites?.other?.home?.front_default
-                        ||value?.sprites?.front_default
-                        || 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg'
+                            value?.sprites?.other["official-artwork"]?.front_default
+                            : value?.sprites?.other?.home?.front_default
+                            || value?.sprites?.front_default
+                            || 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg'
                     }
                     className='image_items' />
                 <h3>Name: {value?.name}</h3>
