@@ -6,11 +6,13 @@ import axios from 'axios'
 import { typeColors, typeIcon } from '../../function/TypePoke'
 
 const DetailPoke = memo(() => {
+    /* นำค่าจาก url มาใช้ */
     const params = useParams();
     const navigate = useNavigate();
-    console.log("DetailPoke rendered")
 
+    /* ข้อมูลแบบละเอียดของโปเกม่อนตัวนี้โดยเฉพาะ */
     const [data, setData] = useState({});
+    /* ข้อมูลคำพูดอธิบายต่างๆของโปเกม่อน */
     const [seedPoke, setSeedPoke] = useState([]);
 
     const fetchPoke = (url) => {
@@ -29,18 +31,19 @@ const DetailPoke = memo(() => {
             console.error('Error fetching data:', error);
         }
     };
-
     useEffect(() => {
+        /* ดึงข้อมูลโปเกม่อนตามชื่อที่ได้มาจาก url แบบละเอียด */
         fetchPoke(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
     }, [])
 
+    /* กรองข้อมูลคำพูดอธิบายต่างๆของโปเกม่อน */
     const filterSpecies = (seeds) => {
         if (seeds?.flavor_text_entries) {
             return Array.from(
                 seeds.flavor_text_entries
-                    .filter(t => t.language?.name === 'en')
-                    .map(i => i.flavor_text.replace(/\r?\n|\r|\u000c/gm, ""))
-                    .reduce((acc, cur) => {
+                    .filter(t => t.language?.name === 'en') /* กรองเอาแค่ภาษาอังกฤษ */
+                    .map(i => i.flavor_text.replace(/\r?\n|\r|\u000c/gm, ""))/* กรองข้อมูลด้วย regular expression */
+                    .reduce((acc, cur) => { /* กรองเอาที่ซ้ำออกไป ด้วย Object new Map */
                         return acc.set(cur.toLowerCase().substring(0, 10), cur);
                     }, new Map())
                     .values()

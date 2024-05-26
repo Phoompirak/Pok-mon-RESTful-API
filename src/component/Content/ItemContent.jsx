@@ -1,16 +1,21 @@
 import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ItemContent.module.css';
-import { GoHeartFill, GoHeart } from "react-icons/go";
 
+/* Import สีและไอคอนตามประเภทของโปเกม่อน */
 import { typeColors, typeIcon } from '../../function/TypePoke'
 
 const ItemContent = memo(({ value }) => {
+    /* ใช้เช็คว่าเอาเมาส์มาวางไว้Itemไหม ถ้าวางก็ให้ */
     const [hoverItem, setHoverItem] = useState(false)
+    /* ดึงข้อมูลที่เก็บไว้ใน brower storage หรือ sessionStaorage */
     const storageLikePoke = new Map(JSON.parse(sessionStorage.getItem('favPoke'))) || false
+    /* ดึงข้อมูลจำนวนตัวโปเกมม่อนที่เก็บไว้ใน sessionStorage storage */
     const likePoke = storageLikePoke.get(value.name) ? true : false
 
+    /* ใช้กับปุ่มหัวใจเพื่อกดชอบ */
     const addLikePoke = (name, id) => {
+        /* โค้ดสำหรับเปลี่ยนแปลงค่าใน sessionstorage ซึ่งเราใช้Object Map */
         const storageFavPokeJSON = sessionStorage.getItem('favPoke');
         const storageFavPoke = storageFavPokeJSON ? new Map(JSON.parse(storageFavPokeJSON)) : new Map();
         if (storageFavPoke.get(name)) { return }
@@ -21,7 +26,9 @@ const ItemContent = memo(({ value }) => {
             console.log(storageFavPoke);
         }
     }
+    /* ใช้กับปุ่มหัวใจ ฟังก์ชั่นสำหรับลบข้อมูลโปเกม่อนที่ชอบ */
     const removeLikePoke = (name) => {
+        /* โค้ดสำหรับเปลี่ยนแปลงค่าใน sessionstorage */
         const storageFavPokeJSON = sessionStorage.getItem('favPoke');
         const storageFavPoke = storageFavPokeJSON ? new Map(JSON.parse(storageFavPokeJSON)) : new Map();
 
@@ -35,12 +42,12 @@ const ItemContent = memo(({ value }) => {
             console.log("ไม่มีPokemonที่จะลบ")
         }
     }
-    const itemCards = document.querySelectorAll('.items');
+    const itemCards = document.querySelectorAll('.items'); /* get element items มาใช้ */
 
     if (itemCards.length > 0 && itemCards) { // ตรวจสอบว่ามี elements ที่ตรงตามเงื่อนไขหรือไม่
         itemCards.forEach(card => {
             card.addEventListener('mouseover', () => {
-                // เล็กกว่านี้เป็นมือถือ hover ไม่ได้
+                // เล็กกว่านี้เป็นมือถือหรือแท็บเล็ต hover ไม่ได้ เลยไม่ใส่ filter สีซีด
                 if (window.innerWidth >= 1171) {
                     card.style.filter = 'grayscale(0)';
                 }
@@ -63,12 +70,15 @@ const ItemContent = memo(({ value }) => {
                     boxShadow: hoverItem && `1px 1px 10px ${typeColors[value?.types[0]?.type?.name]}, 0 0 30px ${typeColors[value?.types[0]?.type?.name]}`,
                     borderBottom: hoverItem && `.14rem solid ${typeColors[value?.types[0]?.type?.name]}`
                 }}
+                /* เปลี่ยนแปลงตค่า HoverItem เมื่อเอาเมาส์มาวางหรือเลิกวาง */
                 onMouseOver={() => setHoverItem(true)}
                 onMouseOut={() => setHoverItem(false)}
             >
-                {likePoke
-                    ? <div className={`${styles.heart_bg} ${styles.like}`} onClick={() => removeLikePoke(value?.name)}></div>
-                    : <div className={styles.heart_bg} onClick={() => addLikePoke(value?.name, value?.id)}></div>
+                {
+                    /* ถ้าuserได้กดชอบโปเกม่อน หัวใจก็จะเป็นสีแดง */
+                    likePoke
+                        ? <div className={`${styles.heart_bg} ${styles.like}`} onClick={() => removeLikePoke(value?.name)}></div>
+                        : <div className={styles.heart_bg} onClick={() => addLikePoke(value?.name, value?.id)}></div>
                 }
                 <img
                     src={
@@ -93,6 +103,7 @@ const ItemContent = memo(({ value }) => {
                         </li>
                     ))}
                 </ul>
+                {/* ปุ่มไปยังหน้าข้อมูลแบบละเอียดของโปเกม่อน */}
                 <Link to={'/pokemon/' + value?.id}>
                     <button
                         className={styles.button_29}

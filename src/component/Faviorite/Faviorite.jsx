@@ -6,6 +6,7 @@ import styles from './Faviorite.module.css'
 import Footer from '../Footer/Footer'
 
 const Favorite = () => {
+    /* ดึงข้อมูลโปเกม่อนตามที่userกดชอบมา */
     const [favPokemon, setFavPokemon] = useState([]);
 
     const getFavPokemon = async (pokemons) => {
@@ -24,11 +25,10 @@ const Favorite = () => {
     };
 
     useEffect(() => {
-        const favPoke = new Map(JSON.parse(sessionStorage.getItem('favPoke'))) || new Map();
+        const favPoke = new Map(JSON.parse(sessionStorage.getItem('favPoke'))) || new Map(); /* นำค่าที่อยู่ในsessionStorage มาใช้ซึ่งเราใช้Object Map */
         console.log("favPoke:", favPoke)
         getFavPokemon(Array.from(favPoke.keys()));
     }, [])
-    console.log(favPokemon)
     return (
         <>
             <Navbar />

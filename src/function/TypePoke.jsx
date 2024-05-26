@@ -19,6 +19,7 @@ import {
     FaDumbbell
 } from "react-icons/fa";
 
+/* ข้อมูลสี แต่ละประเภทของโปเกม่อน */
 export const typeColors = {
     normal: "#A8A878",
     poison: "#A040A0",
@@ -40,6 +41,7 @@ export const typeColors = {
     fairy: "#EE99AC",
 };
 
+/* ข้อมูลIcons แต่ละประเภทของโปเกม่อน */
 export const typeIcon = {
     normal: <FaDotCircle />,
     poison: <FaSkullCrossbones />,
