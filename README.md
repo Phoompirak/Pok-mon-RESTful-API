@@ -1,7 +1,35 @@
 ### Deployed with Render
-- https://pok-mon-restful-api.onrender.com/
+- Link to web pokemon --> <a href='https://pok-mon-restful-api.onrender.com/' target='_blank'>"https://pok-mon-restful-api.onrender.com/"</a>
 
+## Examples web site screen shot
+<img src="/public/Screenshot 2024-05-09 152006.png" alt="Example web screen shot" style="width: 80%;"/>
+<img src="/public/Screenshot 2024-05-09 152055.png" alt="Example web screen shot" style="width: 80%;"/>
 
+## Get started
+*Dependencies:*
+- Node.js
+- npm/yarn (for package management)
+
+1. Clone the repo
+  ```sh
+  git clone https://github.com/Phoompirak/Pokmon-RESTful-API.git
+  ```
+2. Install NPM packages
+  ```sh
+  git i
+  ```
+3. Install NPM packages
+  ```sh
+  npm run dev
+  ```
+
+*Additional references:*
+- [Node.js documentation](https://nodejs.org/en/docs/)
+- [npm/yarn documentation](https://docs.npmjs.com/)
+- [React documentation](https://reactjs.org/docs/getting-started.html)
+- [Vite React documentation](https://vitejs.dev/guide/)
+
+<br />
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
